@@ -1,0 +1,11 @@
+links :
+	movieId,imdbId,tmdbId
+
+movies :
+	movieId,title,genres
+
+rating :
+	userId,movieId,rating,timestamp
+
+tags :
+	userId,movieId,tag,timestamp
