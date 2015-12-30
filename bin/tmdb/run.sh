@@ -197,6 +197,7 @@ prepare_image_datasets() {
     _idx=$(($_idx+1))
   done
 
+  _idx=0
   _count=`cat ${JSON_OP} | jq '.posters | length'`
   while [ ${_idx} -ne ${_count} ]
   do
@@ -239,6 +240,7 @@ prepare_casts_and_crew_datasets() {
   done
 
   _count=`cat ${JSON_OP} | jq '.crew | length'`
+  _idx=0
   while [ ${_idx} -ne ${_count} ]
   do
     _credit_id=`cat ${JSON_OP} | jq -r --arg _idx $_idx '.crew['$_idx'].credit_id'`
@@ -286,7 +288,7 @@ read_movies() {
   
   while read movie_id
   do
-    sleep 5s
+    #sleep 1s
     for att in ${XTRA_ATTRIBUTES[@]}
     do
       URL=$PRE_URL'/'$movie_id'/'$att$SUFFIX_URL
