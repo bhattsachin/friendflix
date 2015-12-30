@@ -9,3 +9,18 @@ rating :
 
 tags :
 	userId,movieId,tag,timestamp
+videos
+	movie_id video_id iso_639_1 key name site size type
+
+images
+	movie_id,aspect_ratio file_path height iso_639_1 vote_average vote_count width "B"
+	movie_id,aspect_ratio file_path height iso_639_1 vote_average vote_count width "P"
+
+Keyword
+       movie_id,key_id,name
+
+Cast
+	movie_id cast_id character credit_id id name order profile_path
+
+Crew
+       movie_id credit_id department id job name profile_path
