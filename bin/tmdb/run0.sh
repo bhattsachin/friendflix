@@ -1,39 +1,29 @@
 #!/bin/bash
 
-DO_NOT_KEEP=true
-#DO_NOT_KEEP=false
+DO_NOT_KEEP_FILES=true
 VERBOSE=true
-movie_genre_url='http://api.themoviedb.org/3/genre/movie/list?api_key=2ff3bf786f52b1bd5ad0b69f2ec10c9d'
-movie_genre_url_json='genre.json.tmp'
 GENERE_DAT='genere.csv'
 XTRA_ATTRIBUTES=('images' 'keywords' 'credits' 'videos')
 MOVIE_TYPES=('popular' 'upcoming' 'top_rated')
 PRE_URL='http://api.themoviedb.org/3/movie'
 SUFFIX_URL='?api_key=2ff3bf786f52b1bd5ad0b69f2ec10c9d'
 DEST='/tmp/test'
-MOVIE_DAT='popular_movies_id.txt'
+MOVIE_ID_DAT='op.txt'
 
-call_get_movie_genre_url() {
-  curl --include \
-       --header "Accept: application/json;" ${movie_genre_url} > ${movie_genre_url_json}
-  tail -1 ${movie_genre_url_json} > ${movie_genre_url_json%.tmp}
-  rm -rf ${movie_genre_url_json}
-}
 
 prepare_genere_lookup() {
-  GENRE_OP=${movie_genre_url_json%.tmp}
-  declare -i __count
-  __count=`cat ${GENRE_OP} | jq '.genres | length'`
-  declare  -i __idx
-  __idx=0
+  declare -i _count
+  _count=`cat ${JSON_OP} | jq '.genres | length'`
+  declare  -i _idx
+  _idx=0
 
-  while [ ${__idx} -ne ${__count} ]
+  while [ ${_idx} -ne ${_count} ]
   do
-    __id=`cat ${GENRE_OP} | jq --arg __idx $__idx '.genres['$__idx'].id'`
-    __name=`cat ${GENRE_OP} | jq --arg __idx $__idx '.genres['$__idx'].name'`
-    echo "${__id}	${__name}" 
-    echo "${__id}	${__name}" >> ${GENERE_DAT}
-    __idx=$(($__idx+1))
+    _id=`cat ${JSON_OP} | jq --arg _idx $_idx '.genres['$_idx'].id'`
+    _name=`cat ${JSON_OP} | jq --arg _idx $_idx '.genres['$_idx'].name'`
+    echo "${_id}	${_name}" 
+    echo "${_id}	${_name}" >> ${GENERE_DAT}
+    _idx=$(($_idx+1))
   done
 }
 
@@ -48,57 +38,56 @@ call_get_request() {
 
 
 count_no_of_pages() {
-
     JSON_OP_TMP=${$}'.json.tmp'
     JSON_OP=${JSON_OP_TMP%.tmp}
     call_get_request ${1}
     START=0
     TOTAL_PAGES=`cat ${JSON_OP} | jq -r '.total_pages'`
-    ${DO_NOT_KEEP} && rm -rf ${JSON_OP}
+    ${DO_NOT_KEEP_FILES} && rm -rf ${JSON_OP}
 }
 
 prepare_movie_datasets() {
   
-  declare -i __count
-  __count=`cat ${JSON_OP} | jq '.results | length'`
-  declare  -i __idx
-  __idx=0
+  declare -i _count
+  _count=`cat ${JSON_OP} | jq '.results | length'`
+  declare  -i _idx
+  _idx=0
 
-  while [ ${__idx} -ne ${__count} ]
+  while [ ${_idx} -ne ${_count} ]
   do
-    __id=`cat ${JSON_OP} | jq --arg __idx $__idx '.results['$__idx'].id'`
-    __original_title=`cat  ${JSON_OP} | jq --arg __idx $__idx '.results['$__idx'].original_title'`
-    __title=`cat ${JSON_OP} | jq -r --arg __idx $__idx '.results['$__idx'].title'`
-    __original_language=`cat ${JSON_OP} | jq -r --arg __idx $__idx '.results['$__idx'].original_language'`
-    __release_date=`cat ${JSON_OP} | jq -r --arg __idx $__idx '.results['$__idx'].release_date'`
-    __adult=`cat ${JSON_OP} | jq -r --arg __idx $__idx '.results['$__idx'].adult'`
-    __genre_id=`cat ${JSON_OP} | jq -r --arg __idx $__idx '.results['$__idx'].genre_ids[]'`
-    __genre_id=`echo ${__genre_id} | sed -e 's/ /|/g'`
-     echo "${__id}	${__original_title}	${__original_language}	${__release_date}	${__genre_id}	${__adult}" >> ${MOVIES_DAT}
+    _id=`cat ${JSON_OP} | jq --arg _idx $_idx '.results['$_idx'].id'`
+    _original_title=`cat  ${JSON_OP} | jq --arg _idx $_idx '.results['$_idx'].original_title'`
+    _title=`cat ${JSON_OP} | jq -r --arg _idx $_idx '.results['$_idx'].title'`
+    _original_language=`cat ${JSON_OP} | jq -r --arg _idx $_idx '.results['$_idx'].original_language'`
+    _release_date=`cat ${JSON_OP} | jq -r --arg _idx $_idx '.results['$_idx'].release_date'`
+    _adult=`cat ${JSON_OP} | jq -r --arg _idx $_idx '.results['$_idx'].adult'`
+    _genre_id=`cat ${JSON_OP} | jq -r --arg _idx $_idx '.results['$_idx'].genre_ids[]'`
+    _genre_id=`echo ${_genre_id} | sed -e 's/ /|/g'`
+     echo "${_id}	${_original_title}	${_original_language}	${_release_date}	${_genre_id}	${_adult}" >> ${MOVIE_DAT}
   
   
-    __overview=`cat ${JSON_OP} | jq -r --arg __idx $__idx '.results['$__idx'].overview'`
+    _overview=`cat ${JSON_OP} | jq -r --arg _idx $_idx '.results['$_idx'].overview'`
   
-    echo "${__id}	${__overview}" >> ${TAGS_DAT} 
+    echo "${_id}	${_overview}" >> ${TAG_DAT} 
     
-    __popularity=`cat ${JSON_OP} | jq -r --arg __idx $__idx '.results['$__idx'].popularity'`
-    __vote_average=`cat ${JSON_OP} | jq -r --arg __idx $__idx '.results['$__idx'].vote_average'`
-    __vote_count=`cat ${JSON_OP} | jq -r --arg __idx $__idx '.results['$__idx'].vote_count'`
+    _popularity=`cat ${JSON_OP} | jq -r --arg _idx $_idx '.results['$_idx'].popularity'`
+    _vote_average=`cat ${JSON_OP} | jq -r --arg _idx $_idx '.results['$_idx'].vote_average'`
+    _vote_count=`cat ${JSON_OP} | jq -r --arg _idx $_idx '.results['$_idx'].vote_count'`
   
-    echo "${__id}	${__popularity}	${__vote_average}	${__vote_count}" >> ${RATINGS_DAT}
+    echo "${_id}	${_popularity}	${_vote_average}	${_vote_count}" >> ${RATING_DAT}
   
-    __idx=$(($__idx+1))
+    _idx=$(($_idx+1))
   done
 }
 
 
 reset_movie_dataset() {
-  MOVIES_DAT=${$}'_movies.csv'
-  TAGS_DAT=${$}'_tags.csv'
-  RATINGS_DAT=${$}'_ratings.csv'
-  cat /dev/null > ${MOVIES_DAT}
-  cat /dev/null > ${TAGS_DAT}
-  cat /dev/null > ${RATINGS_DAT}
+  MOVIE_DAT=${$}'_movies.csv'
+  TAG_DAT=${$}'_tags.csv'
+  RATING_DAT=${$}'_ratings.csv'
+  cat /dev/null > ${MOVIE_DAT}
+  cat /dev/null > ${TAG_DAT}
+  cat /dev/null > ${RATING_DAT}
 }
 
 
@@ -116,16 +105,16 @@ init_movie_dataset() {
     JSON_OP=${JSON_OP_TMP%.tmp}
     call_get_request ${movie_url}
     prepare_movie_datasets
-    ${DO_NOT_KEEP} && rm -rf ${JSON_OP}
+    ${DO_NOT_KEEP_FILES} && rm -rf ${JSON_OP}
   done
 }
 
 move_to_dir() {
 
   mkdir -p ${1}
-  mv ${MOVIES_DAT} ${1}/movies.csv
-  mv ${TAGS_DAT} ${1}/tags.csv
-  mv ${RATINGS_DAT} ${1}/ratings.csv
+  mv ${MOVIE_DAT} ${1}/movies.csv
+  mv ${TAG_DAT} ${1}/tags.csv
+  mv ${RATING_DAT} ${1}/ratings.csv
 }
 
 reset_video_dataset() {
@@ -318,43 +307,45 @@ read_movies() {
             prepare_video_datasets
             ;;
         esac
-      ${DO_NOT_KEEP} && rm -rf ${JSON_OP}
+      ${DO_NOT_KEEP_FILES} && rm -rf ${JSON_OP}
     done
-  done < ${MOVIE_DAT}
+  done < ${MOVIE_ID_DAT}
 
 }
 
-init_all_dataset
-read_movies
-move_to_parent_dir ${DEST}
+get_all_movies() {
+  for movie_type_ in ${MOVIE_TYPES[@]}
+  do
+    DEST_DIR=${movie_type_}
+    URL=${PRE_URL}'/'${movie_type_}$SUFFIX_URL
+    count_no_of_pages ${URL}
+    URL+='&page='
+    init_movie_dataset ${URL}
+    move_to_dir ${DEST_DIR}
+  done
+}
+
+get_genere() {
+  URL=${PRE_URL}'/list'$SUFFIX_URL
+  JSON_OP_TMP='genere'
+  JSON_OP_TMP+='_'${$}
+  JSON_OP_TMP+='_op.json.tmp'
+  JSON_OP=${JSON_OP_TMP%.tmp}
+  call_get_request ${URL}
+  prepare_genere_lookup
+}
 
 
+__main() {
 
-#prepare_genere_lookup
-#call_get_movie_genre_url
+  #get_genere
 
+  #'http://api.themoviedb.org/3/movie/popular?api_key=2ff3bf786f52b1bd5ad0b69f2ec10c9d'
+  get_all_movies
 
-#'http://api.themoviedb.org/3/movie/popular?api_key=2ff3bf786f52b1bd5ad0b69f2ec10c9d'
+  #init_all_dataset
+  #read_movies
+  #move_to_parent_dir ${DEST}
 
+}
 
-#DEST_DIR='popular'
-#popular_url='http://api.themoviedb.org/3/movie/popular?api_key=2ff3bf786f52b1bd5ad0b69f2ec10c9d'
-#count_no_of_pages ${popular_url}
-#popular_url+='&page='
-#init_movie_dataset ${popular_url}
-#move_to_dir ${DEST_DIR}
-
-
-#DEST_DIR='upcoming'
-#upcoming_url='http://api.themoviedb.org/3/movie/upcoming?api_key=2ff3bf786f52b1bd5ad0b69f2ec10c9d'
-#count_no_of_pages ${upcoming_url}
-#upcoming_url+='&page='
-#init_movie_dataset ${upcoming_url}
-#move_to_dir ${DEST_DIR}
-
-#DEST_DIR='top_rated'
-#top_rated_url='http://api.themoviedb.org/3/movie/top_rated?api_key=2ff3bf786f52b1bd5ad0b69f2ec10c9d'
-#count_no_of_pages ${top_rated_url}
-#top_rated_url+='&page='
-#init_movie_dataset ${top_rated_url}
-#move_to_dir ${DEST_DIR}
