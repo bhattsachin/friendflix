@@ -1,0 +1,24 @@
+{
+  "generator-jhipster": {
+    "baseName": "friendflix",
+    "packageName": "com.frienflix",
+    "packageFolder": "com/frienflix",
+    "authenticationType": "session",
+    "hibernateCache": "no",
+    "clusteredHttpSession": "no",
+    "websocket": "spring-websocket",
+    "databaseType": "mongodb",
+    "devDatabaseType": "mongodb",
+    "prodDatabaseType": "mongodb",
+    "searchEngine": "no",
+    "useSass": false,
+    "buildTool": "gradle",
+    "frontendBuilder": "grunt",
+    "enableTranslation": false,
+    "enableSocialSignIn": true,
+    "rememberMeKey": "4232a307489900980e67e9f1bac4465a0ccdd185",
+    "testFrameworks": [
+      "cucumber"
+    ]
+  }
+}
