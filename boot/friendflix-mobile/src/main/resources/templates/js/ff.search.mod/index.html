@@ -24,16 +24,28 @@
   <form>
 		<input class="input--style" type="text" name="" 
 		ng-model="movieName" ng-model-options="{ debounce: 200 }" 
-     ng-change="check(movieName)" >
-
-		<button ng-click="addMovie()">Add Movie</button>
-
-
+     ng-change="getMovies(movieName)" >
+		<button ng-click="addMovie(movieName)">Add Movie</button>
   </form>
-
 	<ol id="selectable" ng-repeat="movie in movieList">
 		<li class="ui-widget-content">{{movie}}</li>
 	</ol>
+	<hr>
+		
+<!-- add element -->
+ <div class="ffMovie">
+	<ul ng-repeat="movie in movieDetailList">
+		<li class="ui-widget-content">
+			movie Name : 	{{movie.Name}}
+			movie genere : 	{{movie.genere}}
+			movie actors : 	{{movie.actors}}
+			movie description : 	{{movie.desc}}
+			movie punchLines : 	{{movie.punchLines}}
+			movie img : 	{{movie.img}}
+		</li>
+	</ul>
+ </div>
+
 </div>
 
 

@@ -1,25 +1,27 @@
 app.controller("ffSearchCtrl", ['$scope','$http' ,function($scope,$http) {
     $scope.movieName = "";
 	$scope.movieList = {};
+	$scope.movieDetailList = [];
 
-    $scope.check = function (imovieName) {
-		console.log("checking movie Name");
+    $scope.getMovies = function (imovieName) {
+		console.log("getMovies movie Name");
 		if ( imovieName !== undefined && imovieName.length >= 3) {
 			console.log(imovieName);
-			$scope.addMovie(imovieName,false);
+			//$scope._showMovies (imovieName,false);
 		} else {
-			$scope.addMovie();
+			//$scope._showMovies ();
 		}
 	};
-    $scope.addMovie = function (imovieName,isEmpty) {
-		console.log("You have added movie");
-		var ffUrl = "/movie.json"
+
+    $scope._showMovies = function (imovieName,isEmpty) {
+		console.log("showing movies");
+		var ffShowMovieUrl = "/movie.json"
 		if (isEmpty === undefined) {
-			ffUrl  = '/movieEmpty.json'
+			ffShowMovieUrl  = '/movieEmpty.json'
 		}
 		$http({
             method: 'GET',
-            url: ffUrl,
+            url: ffShowMovieUrl,
             data: { 
 				movieName : imovieName
 			}
@@ -30,5 +32,26 @@ app.controller("ffSearchCtrl", ['$scope','$http' ,function($scope,$http) {
                 $scope.status = 'Unable to connect' + error.message;
             });
 	};
-	$scope.check();
+
+	$scope.addMovie = function(imovieName) {
+		console.log("addMovie ")
+		var ffDetailMovieUrl = "movieDetails.json"
+		$http({
+            method: 'GET',
+            url: ffDetailMovieUrl ,
+            data: { 
+				movieName : imovieName
+			}
+			}).success(function (result) {
+				console.log(result)
+				$scope.movieDetailList.push(result);
+			}).error(function (error) {
+                $scope.status = 'Unable to connect' + error.message;
+            });
+
+	};
+
+
+
+
 }]);
