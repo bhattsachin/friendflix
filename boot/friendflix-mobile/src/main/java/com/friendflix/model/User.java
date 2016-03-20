@@ -1,5 +1,8 @@
 package com.friendflix.model;
 
-public interface User{
+public abstract class User{
+	
+	String name;
+	
 
 }
