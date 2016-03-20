@@ -62,10 +62,31 @@ body {
 			movie description : 	{{movie.desc}}
 			movie punchLines : 	{{movie.punchLines}}
 			movie img : 	{{movie.img}}
-		</li>-->
+		</li>
 	</ul>
-  <ul class="demo-list-two mdl-list" ng-repeat="movie in movieDetailList">
-	<li class="mdl-list__item mdl-list__item--two-line">
+-->
+
+	<ul class="demo-list-two mdl-list" ng-repeat="movie in movieDetailList">
+	<li class="mdl-list__item--two-line">
+    <span class="mdl-list__item-primary-content">
+    <i class="material-icons mdl-list__item-avatar">{{movie.img}}</i>
+		<span>{{movie.name}}</span>
+    <span class="mdl-list__item-sub-title">{{movie.actors}}</span>
+    <span class="mdl-list__item-sub-title">{{movie.genere}}</span>
+	</li>
+	<li class="mdl-list__item">
+   <span class="mdl-list__item-primary-content">
+	 {{movie.desc}}
+	 </span>
+	</li>
+	<li class="mdl-list__item">
+	{{movie.punchLines}}
+	</li>
+	</ul>
+	<!--<ul class="demo-list-two mdl-list" ng-repeat="movie in movieDetailList">
+
+
+	<li class="mdl-list__item mdl-list__item--three-line">
         <span class="mdl-list__item-primary-content">
           <i class="material-icons mdl-list__item-avatar">person</i>
 					<span>{{movie.name}}</span>
@@ -75,8 +96,12 @@ body {
           <span class="mdl-list__item-secondary-info">Actor</span>
           <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">{{movie.img}}</i></a>
         </span>
+				<span class="mdl-list__item-text-body">
+          <span class="mdl-list__item-secondary-info">Actor</span>
+          <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">{{movie.img}}</i></a>
+        </span>
       </li>
- </ul>
+		</ul> -->
  </div>
 
 
