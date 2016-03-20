@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<title> FriendFlix  </title>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+
+ <style>
+  #selectable .ui-selecting { background: #FECA40; }
+  #selectable .ui-selected { background: #F39814; color: white; }
+  #selectable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
+  #selectable li { margin: 3px; padding: 0.4em; font-size: 1.4em; height: 18px; }
+  </style>
+  
+
+<body>
+
+
+<div ng-app="ffSearchApp" ng-controller="ffSearchCtrl">
+  <form>
+		<input class="input--style" type="text" name="" 
+		ng-model="movieName" ng-model-options="{ debounce: 200 }" 
+     ng-change="check(movieName)" >
+
+		<button ng-click="addMovie()">Add Movie</button>
+
+
+  </form>
+
+	<ol id="selectable" ng-repeat="movie in movieList">
+		<li class="ui-widget-content">{{movie}}</li>
+	</ol>
+</div>
+
+
+<script src="ffSearchApp.js"></script>
+<script src="ffSearchCtrl.js"></script>
+
+</body>
+</html>
