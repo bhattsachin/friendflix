@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class CodeGenerator {
 	
-	private static Random random = new Random();
+/*	private static Random random = new Random();
 	
 	public static void main(String args[]){
 	
@@ -23,11 +23,11 @@ public class CodeGenerator {
 		return random.nextInt(37);
 	}
 	
-	/**
+	*//**
 	 * return a char value based on input
 	 * @param num
 	 * @return
-	 */
+	 *//*
 	public static char getCharForNum(int num){
 		if(num>35 || num<0){
 			return '-';
@@ -40,7 +40,7 @@ public class CodeGenerator {
 		
 		
 	}
-	
+	*/
 	
 	
 
