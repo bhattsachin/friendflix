@@ -12,6 +12,7 @@ app.controller("ffSearchCtrl", ['$scope','$http' ,function($scope,$http) {
 			//$scope._showMovies ();
 		}
 	};
+	
 
     $scope._showMovies = function (imovieName,isEmpty) {
 		console.log("showing movies");
@@ -34,11 +35,11 @@ app.controller("ffSearchCtrl", ['$scope','$http' ,function($scope,$http) {
 	};
 
 	$scope.addMovie = function(imovieName) {
-		console.log("addMovie ")
+		console.log("addMovie")
 		var ffDetailMovieUrl = "movieDetails.json"
 		$http({
             method: 'GET',
-            url: ffDetailMovieUrl ,
+            url: ffDetailMovieUrl,
             data: { 
 				movieName : imovieName
 			}
@@ -50,8 +51,4 @@ app.controller("ffSearchCtrl", ['$scope','$http' ,function($scope,$http) {
             });
 
 	};
-
-
-
-
 }]);
