@@ -2,3 +2,5 @@ tt*
 *.swp
 *.o
 *.out
+*.dat
+node_modules

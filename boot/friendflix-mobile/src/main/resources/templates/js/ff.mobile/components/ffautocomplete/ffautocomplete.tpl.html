@@ -1,0 +1,20 @@
+<div layout="column">
+  <div layout="row" layout-align="center center">
+   <md-autocomplete  flex="60" id="searchBar" md-floating-label="Search
+Shows" md-item-text="item" md-items="show in vm.querySearch(searchText)" md-min-length="2" md-no-cache="true" md-search-text="searchText" md-selected-item="vm.selectedItem" md-selected-item-change="vm.selectedChange(show)">
+    <md-item-template>
+     {{show}}
+    </md-item-template>
+   </md-autocomplete>
+  </div>
+  <div ng-repeat="show in vm.showRecords" layout="row" layout-align="center center">
+      {{show}}
+      <md-button class="ffexpbtn">
+       <md-icon class="mdi mdi-chevron-down ffexpbtn-icon">
+       </md-icon>
+      </md-button>
+      <md-button>
+       <md-icon class="mdi mdi-delete ffexpbtn-icon">
+       </md-icon>
+      </md-button>
+ </div>
