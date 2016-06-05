@@ -9,11 +9,11 @@ Shows" md-item-text="item" md-items="show in vm.querySearch(searchText)" md-min-
   </div>
   <div ng-repeat="show in vm.showRecords" layout="row" layout-align="center center">
       {{show}}
-      <md-button class="ffexpbtn">
+      <md-button class="ffexpbtn" ng-click="vm.exploreShow()">
        <md-icon class="mdi mdi-chevron-down ffexpbtn-icon">
        </md-icon>
       </md-button>
-      <md-button>
+      <md-button ng-click="vm.deleteShow(show)">
        <md-icon class="mdi mdi-delete ffexpbtn-icon">
        </md-icon>
       </md-button>

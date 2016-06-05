@@ -3,25 +3,20 @@ button .material-icons {
 }
 
 .ffheader__title {
-  font-size: 1.19em;
-  font-family: Arial, Helvetica, sans-serif;
-  text-decoration: none;
   background-color: lightgreen;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.19em;
   padding: 14px 25px;
   text-align: center;
+  text-decoration: none;
 }
-
 .ffchat__title {
-
-  font-size: 1em;
-  font-family: Arial, Helvetica, sans-serif;
   background-color: lightgreen;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1em;
   margin : 10px;
 }
-
-.ffchat__input {
- 
+.fchat__input {
+  margin : 10px;
   padding : 20px;
-  margin : 10px;
 }
-
