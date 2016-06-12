@@ -1,0 +1,22 @@
+button .material-icons {
+  margin-top: 7px;
+}
+
+.ffheader__title {
+  background-color: lightgreen;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.19em;
+  padding: 14px 25px;
+  text-align: center;
+  text-decoration: none;
+}
+.ffchat__title {
+  background-color: lightgreen;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1em;
+  margin : 10px;
+}
+.fchat__input {
+  margin : 10px;
+  padding : 20px;
+}

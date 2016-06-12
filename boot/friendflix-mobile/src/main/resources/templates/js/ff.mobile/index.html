@@ -1,0 +1,69 @@
+<html lang="en">
+ <head>
+  <title>
+   FriendFlix
+  </title>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <link href="node_modules/angular-material/angular-material.css" rel="stylesheet"/>
+  <link href="node_modules/mdi/css/materialdesignicons.min.css" media="all" rel="stylesheet"/>
+  <link href="css/style.css" rel="stylesheet"/>
+ </head>
+ <body ng-app="FFApp">
+  <md-toolbar>
+   <div class="ffheader" layout="row" layout-align="space-around center">
+    <a class="ffheader__title" ui-sref="new">
+     New
+    </a>
+    <a class="ffheader__title" ui-sref="trending">
+     Trending
+    </a>
+    <a class="ffheader__title" ui-sref="share">
+     Share
+    </a>
+    <md-button>
+     Login
+    </md-button>
+   </div>
+  </md-toolbar>
+  <div layout="row">
+   <div flex="66">
+    <ui-view>
+    </ui-view>
+   </div>
+   <div flex="33">
+    <div class="ffchat" layout="column" layout-align="end end">
+     <md-content flex="5">
+      Group members
+     </md-content>
+     <md-content flex="10">
+      Elit, facilis, consectetur, minima, maiores, repellendus?, Similique, tempora, aperiam, dolor.
+     </md-content>
+     <md-content flex="50">
+      Ipsum voluptatem consectetur alias suscipit nam accusantium. Nobis voluptatem tempora maiores voluptas doloremque dolore blanditiis quo numquam? Rerum accusamus repellendus officia veritatis dolor quas ab deserunt dolores alias facilis veniam praesentium! Sunt deleniti dignissimos necessitatibus iusto incidunt! Blanditiis dolorum veniam similique error praesentium ex. Vitae quisquam rerum sunt quos totam animi consequuntur provident perf
+Amet quae provident labore quibusdam a, sunt magnam quis nisi iste maiores. Modi ducimus impedit impedit soluta laudantium aliquam soluta. Dolorem quam ullam voluptates consequatur iusto harum! Corporis quo delectus corrupti nisi praesentium, ullam fugiat, doloremque ut sunt. Alias repellendus.
+     </md-content>
+     <md-input-container class="ffchat__input">
+      <label>
+       Enter
+      </label>
+      <input type="text"/>
+     </md-input-container>
+    </div>
+   </div>
+  </div>
+  <script src="node_modules/angular/angular.js">
+  </script>
+  <script src="node_modules/angular-animate/angular-animate.js">
+  </script>
+  <script src="node_modules/angular-aria/angular-aria.min.js">
+  </script>
+  <script src="node_modules/angular-material/angular-material.js">
+  </script>
+  <script src="node_modules/angular-ui-router/release/angular-ui-router.js">
+  </script>
+  <script src="scripts/ffapp.js">
+  </script>
+  <script src="components/ffautocomplete.ctrl.js">
+  </script>
+ </body>
+</html>
